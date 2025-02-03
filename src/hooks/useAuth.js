@@ -3,6 +3,7 @@ import { AppContext } from "../contexts/AppContext";
 
 export const useAuth = () => {
     const app = useContext(AppContext);
+// console.log('umuntu ari connecté', app.user);
 
     return {
         user: {

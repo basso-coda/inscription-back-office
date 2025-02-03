@@ -72,5 +72,8 @@
   "no-items-found": "Action non trouvée",
   "can-continue": "Voulez-vous continuer ?",
   "can-return": "Voulez-vous retourner à l'étape précedente ?",
-  "add-comment": "Ajouter un commentaire ..."
+  "add-comment": "Ajouter un commentaire ...",
+  "facultes": "Facultes",
+  "departements": "Départements",
+  "classes": "Classes"
 }

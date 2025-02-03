@@ -138,4 +138,8 @@ ul {
 
 .p-inputswitch .p-inputswitch-input .p-inputswitch-slider {
     background: #ef743c !important;
-  }
+}
+
+.rounded-button {
+    border-radius: 12px;
+}

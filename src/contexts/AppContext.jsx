@@ -9,7 +9,7 @@ export const AppContext = createContext(null);
  * @description Le fournisseur de context pour toute l'application entière
  */
 export const AppProvider = ({ children }) => {
-    const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('default-user') || null));
+    const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user') || null));
     const [locale, setLocale] = useState(() => JSON.parse(localStorage.getItem('default-locale') || JSON.stringify("fr")));
     const [breadCrumbItems, setBreadCrumbItems] = useState([]);
     const [toast, setToast] = useState(null);
@@ -47,7 +47,7 @@ export const AppProvider = ({ children }) => {
 
     useEffect(() => {
         if (user) {
-            localStorage.setItem('default-user', JSON.stringify(user));
+            localStorage.setItem('user', JSON.stringify(user));
         }
     }, [handleLogin, user])
 

@@ -9,7 +9,7 @@ import { history } from "./history";
  */
 export default async function fetchApi(url, options = {}) {
 
-    const user = JSON.parse(localStorage.getItem("default-user") || null);
+    const user = JSON.parse(localStorage.getItem("user") || null);
 
     const headers = { ...options?.headers };
 

@@ -3,7 +3,7 @@ import "../../styles/app/sidebar.css";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { FormattedMessage } from "react-intl";
-import Logo from "../../assets/logo_bitwi.jpeg";
+import Logo from "../../assets/biu-logo.jpg";
 
 export default function SideBar() {
   const { setToastAction } = useApp();
@@ -42,7 +42,7 @@ export default function SideBar() {
 
         />
         {/* <img src={'/vite.svg?url'} alt="" className="logo" /> */}
-        <h4 className="mx-2 mb-0">BITWI - CNCM</h4>
+        <h6 className="mx-2 mb-0">ONLINE - INSCRIPTION</h6>
       </Link>
 
       <nav className={`px-2 flex-fill pt-3`} id="side_color">
@@ -128,27 +128,79 @@ export default function SideBar() {
             </NavLink>
           </div>}
 
-          {/* lapins */}
-          <div className="nav-item ml-5">
+          {!user.hasPermission('motifs') && <div className="nav-item">
+            <NavLink
+              to={"motifs"}
+              className={({ isActive }) =>
+                isActive
+                  ? "admin text-decoration-none rounded d-block"
+                  : "text-decoration-none rounded d-block"
+              }
+              href="/motifs"
+            >
+              <div className="d-flex align-items-center justify-content-between py-2 px-3">
+                <div className="d-flex align-items-center justify-content-between text-white">
+                  <div className="menu-icon"></div>
+                  <span className="menu-title">Motif</span>
+                </div>
+              </div>
+            </NavLink>
+          </div>}
+
+          {!user.hasPermission('type_documents') && <div className="nav-item">
+            <NavLink
+              to={"type_documents"}
+              className={({ isActive }) =>
+                isActive
+                  ? "admin text-decoration-none rounded d-block"
+                  : "text-decoration-none rounded d-block"
+              }
+              href="/type_documents"
+            >
+              <div className="d-flex align-items-center justify-content-between py-2 px-3">
+                <div className="d-flex align-items-center justify-content-between text-white">
+                  <div className="menu-icon"></div>
+                  <span className="menu-title">Type Document</span>
+                </div>
+              </div>
+            </NavLink>
+          </div>}
+
+          {!user.hasPermission('type_paiements') && <div className="nav-item">
+            <NavLink
+              to={"type_paiements"}
+              className={({ isActive }) =>
+                isActive
+                  ? "admin text-decoration-none rounded d-block"
+                  : "text-decoration-none rounded d-block"
+              }
+              href="/type_paiements"
+            >
+              <div className="d-flex align-items-center justify-content-between py-2 px-3">
+                <div className="d-flex align-items-center justify-content-between text-white">
+                  <div className="menu-icon"></div>
+                  <span className="menu-title">Type Paiement</span>
+                </div>
+              </div>
+            </NavLink>
+          </div>}
+
+          {/* Gestion des facultes */}
+          <div className="nav-item">
             <a
               onClick={toggleSubMenu}
               className="text-decoration-none rounded d-block"
               data-bs-toggle="collapse"
-              href="#lapins"
+              href="#gestion-facultes"
               role="button"
               aria-expanded="false"
-              aria-controls="lapins"
+              aria-controls="gestion-facultes"
             >
               <div className="d-flex align-items-center justify-content-between py-2 px-3">
                 <div className="d-flex align-items-center justify-content-between text-white">
                   <div className="menu-icon">
-                    <svg id='Rabbit_24' width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' xmlnsXlink='http://www.w3.org/1999/xlink'><rect width='24' height='24' stroke='none' fill='#FFFFFF' opacity='0' />
-                      <g transform="matrix(0.77 0 0 0.77 12 12)" >
-                        <path stroke='none' strokeWidth={1} strokeDasharray={'none'} strokeLinecap={'butt'} strokeDashoffset={0} strokeLinejoin={'miter'} strokeMiterlimit={4} fill='rgb(255,255,255)' fillRule='nonzero' opacity={1} transform=" translate(-12.99, -13.5)" d="M 10.40625 1 C 9.90625 1 9 1.199219 9 2 C 9 2.597656 9.234375 2.875 9.75 3.125 C 9.4375 3.058594 9.160156 3 8.90625 3 C 7.804688 3 7 3.710938 7 4.3125 C 7 6.519531 10.808594 5.429688 15.3125 7.65625 C 15.121094 8.109375 14.996094 8.570313 14.96875 9.03125 C 13.542969 11.785156 2.113281 5.671875 2 19 C 0.898438 19 0 19.898438 0 21 C 0 22.101563 0.898438 23 2 23 C 2.597656 23 3.425781 22.730469 4.0625 22.3125 C 4.308594 23.539063 4 24.046875 4 25 C 4 25.699219 5.101563 26.011719 6.5 25.8125 C 7.699219 25.8125 9.105469 25.5 10.40625 25.5 C 13.207031 25.5 18.90625 26.3125 18.90625 25.3125 C 18.90625 24.613281 18.1875 22.90625 10.6875 22.90625 C 11.988281 22.707031 14.09375 22.5 15.59375 20.5 C 17.394531 18.300781 14.605469 13.488281 10.40625 16.6875 C 10.40625 16.6875 11.804688 15 13.40625 15 C 15.507813 15 17.792969 17 16.59375 20 C 17.394531 21.101563 20.3125 26 21.3125 26 C 23.3125 26 24.8125 26.09375 24.8125 25.59375 C 24.8125 23.195313 22.3125 24.292969 21.8125 23.59375 C 21.613281 23.292969 21.6875 21.40625 21.1875 19.90625 C 20.105469 16.871094 21.222656 15.597656 21.28125 14 C 23.34375 13.980469 25.390625 13.425781 25.8125 12.40625 C 26.613281 10.507813 24.300781 6.695313 22 5.59375 C 20.796875 4.964844 19.359375 4.882813 18.09375 5.25 C 17.769531 4.792969 17.152344 4.019531 15.8125 3 C 14.011719 1.699219 11.804688 1 10.40625 1 Z M 22 8 C 22.601563 8 23 8.398438 23 9 C 23 9.601563 22.601563 10 22 10 C 21.398438 10 21 9.601563 21 9 C 21 8.398438 21.398438 8 22 8 Z" />
-                      </g>
-                    </svg>
                   </div>
-                  <span className="menu-title">Lapins</span>
+                  <span className="menu-title">Gestion Facultes</span>
                 </div>
 
                 <div className="down_caret">
@@ -169,161 +221,63 @@ export default function SideBar() {
               </div>
             </a>
           </div>
+          <div className="sub-menus collapse ml-3" id="gestion-facultes">
 
-          <div className="sub-menus collapse ml-3" id="lapins">
-
-            {!user.hasPermission('regimes') && <div className="nav-item">
+            {!user.hasPermission('facultes') && <div className="nav-item">
               <NavLink
-                to={"regimes"}
+                to={"facultes"}
                 className={({ isActive }) =>
                   isActive
                     ? "admin text-decoration-none rounded d-block"
                     : "text-decoration-none rounded d-block"
                 }
-                href="/regimes"
+                href="/facultes"
               >
                 <div className="d-flex align-items-center justify-content-between py-2 px-3 text-white">
                   <div className="d-flex align-items-center justify-content-between">
                     <div className="menu-icon"></div>
-                    <span className="menu-title">Regimes</span>
+                    <span className="menu-title"><FormattedMessage id="facultes" /></span>
                   </div>
                 </div>
               </NavLink>
             </div>}
-
-            {!user.hasPermission('maladies') && <div className="nav-item">
+            {!user.hasPermission('departements') && <div className="nav-item">
               <NavLink
-                to={"maladies"}
+                to={"departements"}
                 className={({ isActive }) =>
                   isActive
                     ? "admin text-decoration-none rounded d-block"
                     : "text-decoration-none rounded d-block"
                 }
-                href="/maladies"
+                href="/departements"
               >
                 <div className="d-flex align-items-center justify-content-between py-2 px-3 text-white">
                   <div className="d-flex align-items-center justify-content-between">
                     <div className="menu-icon"></div>
-                    <span className="menu-title">Maladies</span>
+                    <span className="menu-title"><FormattedMessage id="departements" /></span>
                   </div>
                 </div>
               </NavLink>
             </div>}
-
-            {!user.hasPermission('statut_traitements') && <div className="nav-item">
+            {!user.hasPermission('classes') && <div className="nav-item">
               <NavLink
-                to={"statut_traitements"}
+                to={"classes"}
                 className={({ isActive }) =>
                   isActive
                     ? "admin text-decoration-none rounded d-block"
                     : "text-decoration-none rounded d-block"
                 }
-                href="/statut_traitements"
+                href="/classes"
               >
                 <div className="d-flex align-items-center justify-content-between py-2 px-3 text-white">
                   <div className="d-flex align-items-center justify-content-between">
                     <div className="menu-icon"></div>
-                    <span className="menu-title">Statut traitements</span>
-                  </div>
-                </div>
-              </NavLink>
-            </div>}
-
-            {!user.hasPermission('statut_regimes') && <div className="nav-item">
-              <NavLink
-                to={"statut_regimes"}
-                className={({ isActive }) =>
-                  isActive
-                    ? "admin text-decoration-none rounded d-block"
-                    : "text-decoration-none rounded d-block"
-                }
-                href="/statut_regimes"
-              >
-                <div className="d-flex align-items-center justify-content-between py-2 px-3">
-                  <div className="d-flex align-items-center justify-content-between text-white">
-                    <div className="menu-icon"></div>
-                    <span className="menu-title">Statut regimes</span>
-                  </div>
-                </div>
-              </NavLink>
-            </div>}
-
-            {!user.hasPermission('Vaccination') && <div className="nav-item">
-              <NavLink
-                to={"Vaccination"}
-                className={({ isActive }) =>
-                  isActive
-                    ? "admin text-decoration-none rounded d-block"
-                    : "text-decoration-none rounded d-block"
-                }
-                href="/Vaccination"
-              >
-                <div className="d-flex align-items-center justify-content-between py-2 px-3">
-                  <div className="d-flex align-items-center justify-content-between text-white">
-                    <div className="menu-icon"></div>
-                    <span className="menu-title">Vaccination</span>
-                  </div>
-                </div>
-              </NavLink>
-            </div>}
-
-            {!user.hasPermission('nutriments') && <div className="nav-item">
-              <NavLink
-                to={"nutriments"}
-                className={({ isActive }) =>
-                  isActive
-                    ? "admin text-decoration-none rounded d-block"
-                    : "text-decoration-none rounded d-block"
-                }
-                href="/nutriments"
-              >
-                <div className="d-flex align-items-center justify-content-between py-2 px-3">
-                  <div className="d-flex align-items-center justify-content-between text-white">
-                    <div className="menu-icon"></div>
-                    <span className="menu-title">Nutriments</span>
-                  </div>
-                </div>
-              </NavLink>
-            </div>}
-
-            {!user.hasPermission('categorie_lapins') && <div className="nav-item">
-              <NavLink
-                to={"categorie_lapins"}
-                className={({ isActive }) =>
-                  isActive
-                    ? "admin text-decoration-none rounded d-block"
-                    : "text-decoration-none rounded d-block"
-                }
-                href="/categorie_lapins"
-              >
-                <div className="d-flex align-items-center justify-content-between py-2 px-3 text-white">
-                  <div className="d-flex align-items-center justify-content-between">
-                    <div className="menu-icon"></div>
-                    <span className="menu-title">Categorie lapins</span>
+                    <span className="menu-title"><FormattedMessage id="classes" /></span>
                   </div>
                 </div>
               </NavLink>
             </div>}
           </div>
-
-          {!user.hasPermission('Categorie_depense') && <div className="nav-item">
-            <NavLink
-              to={"Categorie_depense"}
-              className={({ isActive }) =>
-                isActive
-                  ? "admin text-decoration-none rounded d-block"
-                  : "text-decoration-none rounded d-block"
-              }
-              href="/Categorie_depense"
-            >
-              <div className="d-flex align-items-center justify-content-between py-2 px-3">
-                <div className="d-flex align-items-center justify-content-between text-white">
-                  <div className="menu-icon"></div>
-                  <span className="menu-title">Catégorie dépense</span>
-                </div>
-              </div>
-            </NavLink>
-          </div>}
         </div>
         {/* Fin Sous-menu Administrations */}
 

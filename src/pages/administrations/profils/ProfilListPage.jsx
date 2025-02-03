@@ -166,7 +166,7 @@ export default function ProfilListPage() {
   useEffect(() => {
 
     setBreadCrumbAction([profils_routes_items.profils])
-    document.title = `WildLeaf - ${profils_routes_items.profils.name}`;
+    document.title = `BIU - ${profils_routes_items.profils.name}`;
 
     return () => {
       setBreadCrumbAction([]);

@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 
 import { InputText } from "primereact/inputtext";
 import { Card } from "primereact/card";
-
 import { Button } from "primereact/button";
-import Logo from "../../assets/logo_bitwi.jpeg";
-
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import fetchApi from "@/helpers/fetchApi";
 import { useApp } from "@/hooks/useApp";
+import Logo from "../../assets/biu-logo.jpg";
 
 const LoginPage = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -51,7 +49,6 @@ const LoginPage = () => {
 
             setErrors(null);
 
-
         } catch (response) {
             if (response.httpStatus === 422) {
                 setErrors(response.errors);
@@ -65,7 +62,6 @@ const LoginPage = () => {
             })
         } finally {
             setIsSubmitting(false);
-
         }
     };
 
@@ -89,7 +85,7 @@ const LoginPage = () => {
                                     <img
                                         src={Logo}
                                         alt="Logo"
-                                    //   style={{ height: "160px", width: "160px" }}
+                                        // style={{ height: "160px", width: "160px" }}
                                     />
                                 </Link>
                             </div>

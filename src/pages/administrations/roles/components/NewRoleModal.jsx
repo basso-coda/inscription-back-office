@@ -18,7 +18,7 @@ const NewRoleModal = (props) => {
 
     const initialValues = {
         ID_ROLE: props.data?.ID_ROLE,
-        DESC_ROLE: "",
+        DESCRIPTION: "",
     };
 
     const [data, setData] = useState(initialValues);
@@ -59,7 +59,7 @@ const NewRoleModal = (props) => {
                 method: data?.ID_ROLE ? 'PUT' : 'POST',
                 body: JSON.stringify({
                     // ROLE_NOM: data.ROLE_NOM,
-                    DESC_ROLE: data.DESC_ROLE,
+                    DESCRIPTION: data.DESCRIPTION,
                     PROFILS: selectedProfils.map(p => {
                         delete p.ROLES;
                         return p;
@@ -153,21 +153,21 @@ const NewRoleModal = (props) => {
                             </div> */}
 
                             <div className="col-md-12">
-                                <label htmlFor="price" className="label mb-1">
+                                <label htmlFor="DESCRIPTION" className="label mb-1">
                                     Description
                                 </label>
                                 <InputText
                                     type="text"
-                                    id="DESC_ROLE"
-                                    name="DESC_ROLE"
+                                    id="DESCRIPTION"
+                                    name="DESCRIPTION"
                                     style={{ borderRadius: "0px" }}
-                                    value={data.DESC_ROLE}
+                                    value={data.DESCRIPTION}
                                     placeholder=""
-                                    className={`w-100 is-invalid ${errors?.DESC_ROLE
+                                    className={`w-100 is-invalid ${errors?.DESCRIPTION
                                         ? "p-invalid"
                                         : ""
                                         }`}
-                                    onChange={(e) => setData(d => ({ ...data, DESC_ROLE: e.target.value }))}
+                                    onChange={(e) => setData(d => ({ ...data, DESCRIPTION: e.target.value }))}
                                 />
                                 <div
                                     className="invalid-feedback"

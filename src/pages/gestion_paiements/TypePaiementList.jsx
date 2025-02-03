@@ -1,6 +1,5 @@
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { roles_routes_items } from "@/routes/administrations/roles_routes";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { DataTable } from "primereact/datatable";
@@ -9,14 +8,14 @@ import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { useApp } from "@/hooks/useApp";
 import fetchApi from "@/helpers/fetchApi";
 import { Menu } from "primereact/menu";
-import NewRoleModal from "./components/NewRoleModal";
-import { InputSwitch } from "primereact/inputswitch";
+import { type_paiements_routes_items } from "@/routes/gestion_paiements/type_paiements_routes";
+import NewTypePaiementModal from "./components/NewTypePaiementModal";
 
-export default function RoleListPage() {
+export default function TypePaiementList() {
   const [selectAll, setSelectAll] = useState(false);
   const [loading, setLoading] = useState(true);
   const [totalRecords, setTotalRecords] = useState(1);
-  const [roles, setRoles] = useState([]);
+  const [type_paiements, setTypePaiements] = useState([]);
   const [selectedItems, setSelectedItems] = useState(null);
   const [inViewMenuItem, setInViewMenuItem] = useState(null);
   const [addVisible, setAddVisible] = useState(false);
@@ -60,7 +59,7 @@ export default function RoleListPage() {
 
     if (selectAll) {
       setSelectAll(true);
-      setSelectedItems(roles);
+      setSelectedItems(profils);
     } else {
       setSelectAll(false);
       setSelectedItems([]);
@@ -70,9 +69,9 @@ export default function RoleListPage() {
   const deleteItems = async (itemsIds) => {
     try {
       const form = new FormData();
-      form.append("ID_ROLES", JSON.stringify(Array.isArray(itemsIds) ? itemsIds : [itemsIds.ID_ROLE]));
+      form.append("IDS_TYPE_PAIEMENT", JSON.stringify(Array.isArray(itemsIds) ? itemsIds : [itemsIds.ID_TYPE_PAIEMENT]));
       const res = await fetchApi(
-        "/roles/delete",
+        "/type_paiements/delete",
         {
           method: "POST",
           body: form,
@@ -81,12 +80,12 @@ export default function RoleListPage() {
 
       setToastAction({
         severity: "success",
-        summary: "Utilisateur supprimé",
+        summary: "Type paiement supprimé",
         detail: res.message,
         life: 3000,
       })
 
-      fetchRoles();
+      fetchTypePaiements();
       setSelectAll(false);
       setSelectedItems(null);
     } catch (error) {
@@ -108,10 +107,10 @@ export default function RoleListPage() {
       header: "Supprimer ?",
       message: (
         <div className="d-flex flex-column align-items-center">
-          {!Array.isArray(itemsids) ? (
+          {inViewMenuItem ? (
             <>
               <div className="font-bold text-center my-2">
-                {itemsids?.DESCRIPTION}
+                {inViewMenuItem?.DESCRIPTION}
               </div>
               <div className="text-center">
                 Voulez-vous vraiment supprimer ?
@@ -124,7 +123,7 @@ export default function RoleListPage() {
                 {selectedItems?.length > 1 && "s"}
               </div>
               <div className="text-center">
-                {`Voulez-vous vraiment supprimer les éléments selectionnés ?`}
+                Voulez-vous vraiment supprimer les éléments selectionnés ?
               </div>
             </>
           )}
@@ -137,9 +136,10 @@ export default function RoleListPage() {
     });
   };
 
-  const fetchRoles = useCallback(async () => {
+  const fetchTypePaiements = useCallback(async () => {
     try {
-      const baseurl = `/roles?`
+      setLoading(true)
+      const baseurl = `/type_paiements?`
       var url = baseurl
       for (let key in lazyState) {
         const value = lazyState[key]
@@ -151,12 +151,12 @@ export default function RoleListPage() {
           }
         }
       }
+
       const { data } = await fetchApi(url);
-      setLoading(true);
-      setRoles(data.rows);
+      setTypePaiements(data.rows);
       setTotalRecords(data.count);
     } catch (response) {
-      console.log(response)
+      // console.log(response)
 
     } finally {
       setLoading(false);
@@ -165,8 +165,8 @@ export default function RoleListPage() {
 
   useEffect(() => {
 
-    setBreadCrumbAction([roles_routes_items.roles])
-    document.title = `BIU - ${roles_routes_items.roles.name}`
+    setBreadCrumbAction([type_paiements_routes_items.type_paiements])
+    document.title = type_paiements_routes_items.type_paiements.name;
 
     return () => {
       setBreadCrumbAction([]);
@@ -174,29 +174,26 @@ export default function RoleListPage() {
   }, []);
 
   useEffect(() => {
-    fetchRoles();
+    fetchTypePaiements();
   }, [lazyState]);
 
   return (
     <>
       <ConfirmDialog closable dismissableMask={true} />
 
-      {addVisible && <NewRoleModal visible={addVisible} setVisible={setAddVisible} data={inViewMenuItem} fetchRoles={fetchRoles} />}
+      {addVisible && <NewTypePaiementModal visible={addVisible} setVisible={setAddVisible} data={inViewMenuItem} fetchTypePaiements={fetchTypePaiements} />}
 
       <div className="px-4 py-3 main_content">
         <div className="d-flex align-items-center justify-content-between">
-          <h1 className="mb-3">Roles</h1>
+          <h1 className="mb-3">Type paiements</h1>
           <Button
-            label="Nouveau role"
-            className="bitwi-button"
+            label="Nouveau"
+            className="bitwi-button rounded-button"
             icon="pi pi-plus"
             size="small"
-            onClick={() => {
-              setAddVisible(true);
-            }}
+            onClick={() => setAddVisible(true)}
           />
         </div>
-
         <div className="shadow my-2 bg-white p-3 rounded d-flex align-items-center justify-content-between">
           <div className="d-flex align-items-center">
             <div className="p-input-icon-left">
@@ -214,7 +211,6 @@ export default function RoleListPage() {
               />
             </div>
           </div>
-
           <div className="selection-actions d-flex align-items-center">
             <div className="text-muted mx-3">
               {selectedItems ? selectedItems.length : "0"} selectionné
@@ -229,7 +225,7 @@ export default function RoleListPage() {
               onClick={(e) =>
                 handleDeletePress(
                   e,
-                  selectedItems.map((item) => item.id)
+                  selectedItems.map((item) => item.ID_PARTENAIRE)
                 )
               }
             >
@@ -254,14 +250,14 @@ export default function RoleListPage() {
           <div className="shadow rounded mt-3 pr-1 bg-white">
             <DataTable
               lazy
-              value={roles}
+              value={type_paiements}
               tableStyle={{ minWidth: "50rem" }}
               className=""
               paginator
               rowsPerPageOptions={[5, 10, 25, 50]}
               paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
               currentPageReportTemplate={`Affichage de {first} à {last} dans ${totalRecords} éléments`}
-              emptyMessage="Aucun role trouvé"
+              emptyMessage="Aucun type document trouvé"
               first={lazyState.first}
               rows={lazyState.rows}
               totalRecords={totalRecords}
@@ -292,15 +288,10 @@ export default function RoleListPage() {
                 header="Description"
                 sortable
               />
-               <Column
-                field="IS_DELETED"
-                frozen
-                header="Supprimé?"
-                body={(item) => {
-                  return (
-                    <InputSwitch checked={Boolean(item.IS_DELETED)} onChange={e => handleDeletePress(e, item)} />
-                  );
-                }}
+              <Column
+                field="MONTANT"
+                header="Montant"
+                sortable
               />
               <Column
                 field=""
@@ -311,51 +302,50 @@ export default function RoleListPage() {
                   let items = [
                     {
                       label: 'Plus de details',
-                      items: [
-                        {
-                          label: 'Modifier',
-                          icon: 'pi pi-pencil',
-                          template: item => (
-                            <div className='p-menuitem-content px-3'>
-                              <Link onClick={e => setAddVisible(true)} className="flex align-items-center p-2" style={{ textDecoration: "none", color: '#3d3d3d' }}>
-                                <span className={item.icon} />
-                                <span className="mx-2">{item.label}</span>
-                              </Link>
-                            </div>
-                          )
-                        },
-                        {
-                          label: 'Supprimer',
-                          icon: 'pi pi-trash',
-                          template: item => (
-                            <div className='p-menuitem-content px-3'>
-                              <a onClick={e => handleDeletePress(e, inViewMenuItem || selectedItems.map(e => e.ID_ROLE))} className="flex align-items-center p-2" style={{ textDecoration: "none", color: '#3d3d3d' }}>
-                                <span className={`${item.icon} text-danger`} />
-                                <span className="mx-2 text-danger">{item.label}</span>
-                              </a>
-                            </div>
-                          )
-                        }]
-                    },
+
+                      items: [{
+                        label: 'Modifier',
+                        icon: 'pi pi-pencil',
+                        template: item => (
+                          <div className='p-menuitem-content px-3'>
+                            <Link onClick={() => setAddVisible(true)} className="flex align-items-center p-2" style={{ textDecoration: "none", color: '#3d3d3d' }}>
+                              <span className={item.icon} />
+                              <span className="mx-2">{item.label}</span>
+                            </Link>
+                          </div>
+                        )
+                      },
+                      // {
+                      //   label: 'Supprimer',
+                      //   icon: 'pi pi-trash',
+                      //   template: item => (
+                      //     <div className='p-menuitem-content px-3'>
+                      //       <Link onClick={e => handleDeletePress(e, inViewMenuItem || selectedItems.map(e => e.TYPE_PARTENAIRE_ID))} className="flex align-items-center p-2" style={{ textDecoration: "none", color: '#3d3d3d', cursor: 'pointer' }}>
+                      //         <span className={`${item.icon} text-danger`} />
+                      //         <span className="mx-2 text-danger">{item.label}</span>
+                      //       </Link>
+                      //     </div>
+                      //   )
+                      // }
+                      ]
+                    }
                   ];
                   return (
                     <>
                       <Menu model={items} onHide={() => setInViewMenuItem(null)} popup ref={menu} id="popup_menu_right" popupAlignment="right" />
 
                       <Button
-                        rounded
-                        severity="secondary"
-                        text
                         aria-label="Menu"
                         size="small"
-                        className="mx-1"
+                        label="Options"
+                        icon="pi pi-angle-down"
+                        iconPos="right"
+                        className="mx-1 p-1 bitwi-button rounded-button"
                         onClick={(event) => {
                           setInViewMenuItem(item);
                           menu.current.toggle(event);
                         }}
-                      >
-                        <span className="pi pi-ellipsis-h"></span>
-                      </Button>
+                      />
                     </>
                   );
                 }}
