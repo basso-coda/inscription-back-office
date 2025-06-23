@@ -39,9 +39,9 @@ export default function ExigenceFaculteListModal({ idFaculte }) {
                 }
             }
             const res = await fetchApi(url)
-            //console.log(res)
-            setExigenceFacultes(res.data)
-            setTotalRecords(res.data.length)
+            // console.log(res)
+            setExigenceFacultes(res.exigence_facultes.rows)
+            setTotalRecords(res.exigence_facultes.count)
         } catch (error) {
             console.log(error)
         } finally {
@@ -63,9 +63,9 @@ export default function ExigenceFaculteListModal({ idFaculte }) {
                         <DataTable
                            lazy
                            value={exigenceFacultes}
-                        //    tableStyle={{ minWidth: "50rem" }}
+                           tableStyle={{ minWidth: "50rem" }}
                         //    paginator
-                        //    rowsPerPageOptions={[5, 10, 25, 50]}
+                           rowsPerPageOptions={[5, 10, 25, 50]}
                            paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                            currentPageReportTemplate={`Affichage de {first} à {last} dans ${totalRecords} éléments`}
                            emptyMessage="Aucune exigence de faculté trouvé"

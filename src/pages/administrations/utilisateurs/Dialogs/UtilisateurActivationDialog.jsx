@@ -100,7 +100,7 @@ const UtilisateurActivationDialog = (props) => {
 
     return (
         <Dialog
-            header={`${data.IS_ACTIVE ? 'Désactivation' : 'Activation'} d'un employé`}
+            header={`${data.IS_ACTIVE ? 'Désactivation' : 'Activation'} d'un utilisateur`}
             visible={props.visible}
             style={{ width: "35vw" }}
             onHide={props.onHide}

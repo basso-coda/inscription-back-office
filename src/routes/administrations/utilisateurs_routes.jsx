@@ -9,25 +9,25 @@ import HistoriqueUtilisateurListPage from "@/pages/administrations/utilisateurs/
 export const utilisateurs_routes_items = {
   utilisateurs: {
     path: "utilisateurs",
-    name: "Employées",
+    name: "Utilisateurs",
     component: UtilisateursListPage,
   },
 
   historique_utilisateurs: {
     path: "historique-utilisateurs",
-    name: "Historique des Employées",
+    name: "Historique des utilisateurs",
     component: HistoriqueUtilisateurListPage,
   },
 
   new_utilisateur: {
     path: "utilisateurs/new",
-    name: "Nouvel employé(e)",
+    name: "Nouvel utilisateur",
     component: NewUtilisateurPage,
   },
 
   edit_utilisateur: {
     path: "utilisateurs/edit/:ID_utilisateur",
-    name: "Modifier employé(e)",
+    name: "Modifier utilisateur",
     component: EditUtilisateurPage,
   },
 

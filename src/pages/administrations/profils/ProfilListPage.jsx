@@ -11,6 +11,8 @@ import fetchApi from "@/helpers/fetchApi";
 import { Menu } from "primereact/menu";
 import NewProfilModal from "./components/NewProfilModal";
 import { InputSwitch } from "primereact/inputswitch";
+import { Badge } from "primereact/badge";
+import { Dialog } from "primereact/dialog";
 
 export default function ProfilListPage() {
   const [selectAll, setSelectAll] = useState(false);
@@ -20,6 +22,8 @@ export default function ProfilListPage() {
   const [selectedItems, setSelectedItems] = useState(null);
   const [inViewMenuItem, setInViewMenuItem] = useState(null);
   const [addVisible, setAddVisible] = useState(false);
+  const [showRoles, setShowRoles] = useState(false);
+  const [selectedProfil, setSelectedProfil] = useState(null);
 
   const { setToastAction } = useApp();
 
@@ -152,6 +156,7 @@ export default function ProfilListPage() {
         }
       }
       const { data } = await fetchApi(url);
+      
       setLoading(true);
       setProfils(data.rows);
       setTotalRecords(data.count);
@@ -176,12 +181,35 @@ export default function ProfilListPage() {
   useEffect(() => {
     fetchProfils();
   }, [lazyState]);
+  
 
   return (
     <>
       <ConfirmDialog closable dismissableMask={true} />
 
       {addVisible && <NewProfilModal visible={addVisible} setVisible={setAddVisible} data={inViewMenuItem} fetchProfils={fetchProfils} />}
+
+      <Dialog
+          header="Les rôles associés"
+          visible={showRoles}
+          style={{ width: '40vw' }}
+          onHide={() => setShowRoles(false)}
+      >
+        <p>
+            {selectedProfil?.ROLES?.length > 0 ? (
+                <ul>
+                    {selectedProfil?.ROLES.map((item, index) => (
+                        <li key={index}>
+                            {item?.DESCRIPTION || "Rôle non trouvé."}
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p>Aucun rôle enregistré.</p>
+            )}
+        </p>
+        
+      </Dialog>
 
       <div className="px-4 py-3 main_content">
         <div className="d-flex align-items-center justify-content-between">
@@ -289,6 +317,19 @@ export default function ProfilListPage() {
                 field="DESCRIPTION"
                 header="Nom"
                 sortable
+              />
+              <Column
+                header="Roles"
+                body={(item) => {
+                  return (
+                    <a href="#" onClick={() => {
+                      setSelectedProfil(item)
+                      setShowRoles(true)
+                    }}>
+                      <Badge value={"Voir les rôles associés"} severity="warning" />
+                    </a>
+                  )
+                }}
               />
               <Column
                 field="IS_DELETED"

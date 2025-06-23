@@ -151,14 +151,14 @@ export default function Header() {
         return (
           <button onClick={(e) => navigate('/auth/view-profil', { state: { ID_utilisateur: user.data?.ID_UTILISATEUR } })} className={'w-full p-link flex align-items-center p-2 pl-4 text-color hover:surface-200 border-noround'}>
             {
-              user?.PROFIL_PICTURE ?
-                <Avatar image={`${config.BASE_URL}/${user.data.PROFIL_PICTURE}`} className="mr-2" shape="circle" />
+              user?.data?.IMAGE ?
+                <Avatar image={`${user.data.IMAGE}`} className="mr-2" shape="circle" />
                 : <Avatar icon="pi pi-user" shape="circle" />
             }
 
             <div className="flex flex-column ml-2">
               <span className="font-bold">{user.data?.USERNAME}</span>
-              <span className="text-sm">{user.data?.PROFIL_NOM}</span>
+              <span className="text-sm">{user.data?.profil?.DESCRIPTION}</span>
             </div>
           </button>
         );
@@ -263,8 +263,8 @@ export default function Header() {
         <button className="btn p-0 avatar mx-2" onClick={(e) => {
           profilRef.current.toggle(e);
         }}>
-          {user?.PROFIL_PICTURE
-            ? <img src={`${config.BASE_URL}/${user.data.PROFIL_PICTURE}`} alt="" className="" />
+          {user?.data?.IMAGE
+            ? <img src={`${user.data.IMAGE}`} alt="" className="" />
             : <Avatar icon="pi pi-user" shape="circle" />}
         </button>
 

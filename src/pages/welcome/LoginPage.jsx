@@ -199,7 +199,7 @@ const LoginPage = () => {
                                                 label="Se connecter"
                                                 icon="pi pi-sign-in"
                                                 type="submit"
-                                                className="center mt-4 bitwi-button"
+                                                className="center mt-4 bitwi-button rounded-button"
                                                 size="small"
                                                 loading={isSubmitting}
                                             />

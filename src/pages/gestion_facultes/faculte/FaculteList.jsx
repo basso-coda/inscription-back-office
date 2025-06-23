@@ -13,6 +13,7 @@ import { facultes_routes_items } from "@/routes/gestion_facultes/facultes/facult
 import { Badge } from "primereact/badge";
 import { Dialog } from "primereact/dialog";
 import ExigenceFaculteListModal from "./components/ExigenceFaculteListModal";
+import NewExigenceFaculteModal from "./components/NewExigenceFaculteModal";
 
 export default function FaculteList() {
   const [selectAll, setSelectAll] = useState(false);
@@ -229,18 +230,18 @@ export default function FaculteList() {
       )}
       {isVisible && (
           <Dialog
-              header="Ajout des exigences"
+              header="Ajout une éxigence"
               visible={isVisible}
               onHide={hideModal}
               style={{ width: "50vw" }}
               headerStyle={{ backgroundColor: "#f8bf75" }}
               headerClassName="text-white text-center"
           >
-              {/* <TraitementLapinModal
+              <NewExigenceFaculteModal
                   setIsVisible={setIsVisible}
-                  idLapinATraiter={idLapinATraiter}
-                  fetchLapins={fetchLapins}
-              /> */}
+                  id={id}
+                  fetchFacultes={fetchFacultes}
+              />
           </Dialog>
       )}
 

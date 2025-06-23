@@ -15,6 +15,7 @@ import type_paiements_routes from "./gestion_paiements/type_paiements_routes";
 import facultes_routes from "./gestion_facultes/facultes/facultes_routes";
 import departements_routes from "./gestion_facultes/departements/departements_routes";
 import classes_routes from "./gestion_facultes/classes/classes_routes";
+import candidatures_routes from "./gestion_candidatures/candidatures_routes";
 
 
 
@@ -35,6 +36,7 @@ export default function RoutesProvider() {
         {facultes_routes}
         {departements_routes}
         {classes_routes}
+        {candidatures_routes}
         <Route path="/dashboard" element={<ProtectedRoute><DashboardGlobalPage /></ProtectedRoute>} />
         <Route path="/forbidden" element={<ProtectedRoute><ForbiddenPage /></ProtectedRoute>} />
       </Route>

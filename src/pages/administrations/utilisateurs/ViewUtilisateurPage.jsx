@@ -19,33 +19,13 @@ export default function ViewUtilisateurPage() {
         PRENOM: "",
         USERNAME: "",
         EMAIL: "",
-        NUMERO_TELEPHONE: "",
-        ADRESSE_COMPLET: "",
-        LIEU_NAISSANCE: "",
-        DATE_NAISSANCE: "",
-        DUREE_PERIODE: "",
-        NUMERO_COMPTE: "",
-        DATE_ENTREE: null,
-        DATE_SORTIE: null,
-        NUMERO_INSS: "",
+        TELEPHONE: "",
+        DATE_INSERTION: null,
 
         SEXE_ID: null,
         PROFIL_ID: null,
-        ETAT_CIVIL_ID: null,
-        NATIONALITE_ID: null,
-        ID_BANQUE: null,
 
         IMAGE: null,
-        PATH_PHOTO_PASSEPORT: null,
-        PATH_CV: null,
-        PATH_DIPLOME: null,
-        PATH_ATTESTATION_IDENTITE_COMPLETE: null,
-        PATH_ACTE_NAISSANCE_ENFANT: null,
-        PATH_ETAT_CIVIL: null,
-        PATH_EXTRAIT_CASIER_JUDICIARE: null,
-        PATH_LETTE_NOTIFICATION: null,
-        PATH_LETTRE_DEMANDE: null,
-        PATH_SIGNATURE: null,
     }
 
     const [data, setData] = useState(initialValues)
@@ -61,7 +41,7 @@ export default function ViewUtilisateurPage() {
             setLoading(false)
         }
     }
-
+console.log(data)
     useEffect(() => {
         document.title = utilisateurs_routes_items.voir_utilisateur.name;
 
@@ -128,64 +108,16 @@ export default function ViewUtilisateurPage() {
                             </div>
 
                             <div style={{ flex: '1 1 0' }} className="col-4">
-                                <div className="label mb-1">Numére téléphone</div>
+                                <div className="label mb-1">Numéro téléphone</div>
                                 <div className="font-bold">
-                                    {data?.NUMERO_TELEPHONE}
+                                    {data?.TELEPHONE}
                                 </div>
                             </div>
-
+                            
                             <div style={{ flex: '1 1 0' }} className="col-4">
-                                <div className="label mb-1">Adresse complète
-                                </div>
-
+                                <div className="label mb-1">Sexe</div>
                                 <div className="font-bold">
-                                    {data?.ADRESSE_COMPLET}
-                                </div>
-                            </div>
-
-                            <div style={{ flex: '1 1 0' }} className="col-4">
-                                <div className="label mb-1">Lieu de naissance
-                                </div>
-                                <div className="font-bold">
-                                    {data?.LIEU_NAISSANCE}
-                                </div>
-                            </div>
-
-                            <div style={{ flex: '1 1 0' }} className="col-4">
-                                <div className="label mb-1">Date de naissance
-                                </div>
-                                <div className="font-bold">
-                                    {data?.DATE_NAISSANCE ? formatDate(new Date(data?.DATE_NAISSANCE)) : '-'}
-                                </div>
-                            </div>
-
-                            <div style={{ flex: '1 1 0' }} className="col-4">
-                                <div className="label mb-1">Durée période</div>
-                                <div className="font-bold">
-                                    {data?.DUREE_PERIODE}
-                                </div>
-                            </div>
-
-                            <div style={{ flex: '1 1 0' }} className="col-4">
-                                <div className="label mb-1">Numéro INSS</div>
-                                <div className="font-bold">
-                                    {data?.NUMERO_INSS}
-                                </div>
-                            </div>
-
-                            <div style={{ flex: '1 1 0' }} className="col-4">
-                                <div className="label mb-1">Date d'entrée
-                                </div>
-                                <div className="font-bold">
-                                    {formatDate(new Date(data?.DATE_ENTREE))}
-                                </div>
-                            </div>
-
-                            <div style={{ flex: '1 1 0' }} className="col-4">
-                                <div className="label mb-1">
-                                    Date de sortie</div>
-                                <div className="font-bold">
-                                    {formatDate(new Date(data?.DATE_SORTIE))}
+                                    {data?.sexe?.SEXE_DESCRIPTION}
                                 </div>
                             </div>
                         </div>

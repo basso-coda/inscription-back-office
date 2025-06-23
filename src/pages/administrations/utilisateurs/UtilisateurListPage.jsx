@@ -14,6 +14,7 @@ import { Avatar } from "primereact/avatar";
 import { InputSwitch } from "primereact/inputswitch";
 import Loading from "@/components/app/Loading";
 import UtilisateurActivationDialog from "./Dialogs/UtilisateurActivationDialog";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function UtilisateursListPage() {
 
@@ -22,6 +23,9 @@ export default function UtilisateursListPage() {
   const [utilisateurs, setUtilisateurs] = useState([]);
   const [inViewMenuItem, setInViewMenuItem] = useState(null);
   const [visible, setVisible] = useState(false)
+
+  // utilisateur connecté
+  const { user } = useAuth()
 
   const menu = useRef(null);
 
@@ -76,8 +80,13 @@ export default function UtilisateursListPage() {
       }
 
       const { data } = await fetchApi(url);
-      setUtilisateurs(data.rows);
-      setTotalRecords(data.count);
+      const list = data.rows;
+
+      // Exclure l'utilisateur connecté
+      const filteredUsers = list.filter(u => u.ID_UTILISATEUR !== user.data?.ID_UTILISATEUR);
+
+      setUtilisateurs(filteredUsers);
+      setTotalRecords(filteredUsers.length);
     } catch (response) {
       // console.log(response)
 
@@ -116,9 +125,9 @@ export default function UtilisateursListPage() {
 
       <div className="px-4 py-3 main_content">
         <div className="d-flex align-items-center justify-content-between">
-          <h1 className="mb-3">Employé(e)s</h1>
+          <h1 className="mb-3">Utilisateurs</h1>
           <Button
-            label="Nouvel employé(e)"
+            label="Nouvel utilisateur "
             className="bitwi-button"
             icon="pi pi-plus"
             size="small"
@@ -275,29 +284,17 @@ export default function UtilisateursListPage() {
                       <Menu model={items} onHide={() => setInViewMenuItem(null)} popup ref={menu} id="popup_menu_right" popupAlignment="right" />
 
                       <Button
-                        rounded
-                        severity="secondary"
-                        text
                         aria-label="Menu"
                         size="small"
-                        className="mx-1"
+                        label="Options"
+                        icon="pi pi-angle-down"
+                        iconPos="right"
+                        className="mx-1 p-1 bitwi-button rounded-button"
                         onClick={(event) => {
                           setInViewMenuItem(item);
-
                           menu.current.toggle(event);
                         }}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          className="bi bi-three-dots"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
-                        </svg>
-                      </Button>
+                      />
                     </>
                   );
                 }}

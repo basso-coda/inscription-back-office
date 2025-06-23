@@ -88,7 +88,7 @@ export default function HistoriqueUtilisateurListPage() {
 
       <div className="px-4 py-3 main_content">
         <div className="d-flex align-items-center justify-content-between">
-          <h1 className="mb-3">Historique des employé(e)s</h1>
+          <h1 className="mb-3">Historique des utilisateurs</h1>
 
         </div>
         <div className="shadow my-2 bg-white p-3 rounded d-flex align-items-center justify-content-between">
@@ -147,7 +147,6 @@ export default function HistoriqueUtilisateurListPage() {
                 body={(item) => {
                   return (
                     <span>
-
                       {item.utilisateur.NOM} {item.utilisateur.PRENOM}
                     </span>
                   );
@@ -190,7 +189,7 @@ export default function HistoriqueUtilisateurListPage() {
                 body={(item) => {
                   return (
                     <span>
-                      {item.declencheur.NOM} {item.declencheur.PRENOM}
+                      {item.titulaire.NOM} {item.titulaire.PRENOM}
                     </span>
                   );
                 }}
