@@ -13,7 +13,6 @@ export const useAuth = () => {
 
                 // const roles = app.user?.PROFIL.map(profil => [...profil.ROLES]).flat();
                 const roles = app.user?.profil?.ROLES?.flat();
-console.log(roles);
 
                 return Boolean(roles?.find(r => r.DESCRIPTION === role))
             }

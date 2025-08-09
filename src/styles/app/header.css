@@ -23,7 +23,7 @@ header {
 .breadCrumbItem:hover,
 .breadCrumbItem.active {
     background-color: var(--surface-100);
-    color: #ef743c !important;
+    color: #eaaa09 !important;
     font-weight: 400;
     /* background-color: #dfdfdf; */
     /* color: #6366F1 !important; */

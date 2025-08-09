@@ -94,7 +94,7 @@ export default function NewExigenceFaculteModal({ id, fetchFacultes, setIsVisibl
 
                     <div style={{  bottom: 0, right: 0 }} className="w-100 d-flex justify-content-end  pb-3 pr-5 bg-white">
                     
-                        <Button label="Envoyer" type="submit" className="mt-3 ml-3 bitwi-button rounded-button" size="small" disabled={isSubmitting} />
+                        <Button label="Envoyer" type="submit" className="mt-3 ml-3 bg-yellow-400 rounded-button" size="small" disabled={isSubmitting} />
                     </div>
                 </form>
             </div>

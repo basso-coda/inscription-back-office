@@ -30,6 +30,7 @@ export default function ViewDemande() {
     const [showMotif, setShowMotif] = useState(false)
     const { user } = useAuth()
     const [loadingApprouver, setLoadingApprouver] = useState(false)
+    const [traitementCommence, setTraitementCommence] = useState(false)
 
     const showModal = (id) => {
         setVisible(true)
@@ -262,8 +263,12 @@ export default function ViewDemande() {
                             <Button
                                 label="Commencer le traitement"
                                 icon="pi pi-play"
-                                className="p-button-warning mx-2 mb-2"
-                                onClick={handleCommencerTraitement}
+                                className="bg-yellow-400 mx-2 mb-2 rounded-button"
+                                // onClick={handleCommencerTraitement}
+                                onClick={() => {
+                                    handleCommencerTraitement();
+                                    setTraitementCommence(true);
+                                }}
                             />
                         )}
                     </center>
@@ -313,14 +318,19 @@ export default function ViewDemande() {
                             <div className="flex justify-between mt-4">
                                 {(data?.STATUT_CANDIDATURE !== 3 && data?.STATUT_CANDIDATURE !== 4 && data?.STATUT_CANDIDATURE !==5) && (
                                     <>
-                                        <Button label="Refuser la demande" onClick={e => showModal(data?.ID_CANDIDATURE)} className="p-button-secondary mx-2 mb-2" />
+                                        <Button 
+                                            label="Refuser la demande" 
+                                            onClick={e => showModal(data?.ID_CANDIDATURE)} 
+                                            className="p-button-secondary mx-2 mb-2 rounded" 
+                                            disabled={!traitementCommence} //Désactivé si le traitement n'a pas commencé
+                                        />
                                         <Button
                                             label="Approuver la demande"
                                             icon={loadingApprouver ? 'pi pi-spin pi-spinner' : 'pi pi-check'}
                                             iconPos="right"
-                                            className="p-button-success mx-2 mb-2"
+                                            className="p-button-success mx-2 mb-2 rounded"
                                             onClick={handleApprouverClick}
-                                            disabled={loadingApprouver}
+                                            disabled={loadingApprouver || !traitementCommence}
                                         />
                                     </>
                                     

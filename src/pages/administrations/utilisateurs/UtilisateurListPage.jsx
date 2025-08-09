@@ -128,7 +128,7 @@ export default function UtilisateursListPage() {
           <h1 className="mb-3">Utilisateurs</h1>
           <Button
             label="Nouvel utilisateur "
-            className="bitwi-button"
+            className="bg-yellow-400 rounded-button"
             icon="pi pi-plus"
             size="small"
             onClick={() => {
@@ -229,7 +229,7 @@ export default function UtilisateursListPage() {
                 header="Statut"
                 body={(item) => {
                   return (
-                    <InputSwitch pt={{ slider: { className: item.IS_ACTIVE ? 'bitwi-button' : '' } }} checked={Boolean(item.IS_ACTIVE)} onChange={e => handleActiverUtilisateur(e, item)} />
+                    <InputSwitch pt={{ slider: { className: item.IS_ACTIVE ? 'bg-yellow-400 rounded-button' : '' } }} checked={Boolean(item.IS_ACTIVE)} onChange={e => handleActiverUtilisateur(e, item)} />
                   );
                 }}
               />
@@ -289,7 +289,7 @@ export default function UtilisateursListPage() {
                         label="Options"
                         icon="pi pi-angle-down"
                         iconPos="right"
-                        className="mx-1 p-1 bitwi-button rounded-button"
+                        className="mx-1 p-1 bg-yellow-400 rounded-button"
                         onClick={(event) => {
                           setInViewMenuItem(item);
                           menu.current.toggle(event);

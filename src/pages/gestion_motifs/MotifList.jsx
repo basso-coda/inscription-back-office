@@ -188,7 +188,7 @@ export default function MotifList() {
           <h1 className="mb-3">Motifs</h1>
           <Button
             label="Nouveau"
-            className="bitwi-button rounded-button"
+            className="bg-yellow-400 rounded-button"
             icon="pi pi-plus"
             size="small"
             onClick={() => setAddVisible(true)}
@@ -290,7 +290,7 @@ export default function MotifList() {
               />
               <Column
                 field=""
-                header=""
+                header="Actions"
                 alignFrozen="right"
                 frozen
                 body={(item) => {
@@ -335,7 +335,7 @@ export default function MotifList() {
                         label="Options"
                         icon="pi pi-angle-down"
                         iconPos="right"
-                        className="mx-1 p-1 bitwi-button rounded-button"
+                        className="mx-1 p-1 bg-yellow-400 rounded-button"
                         onClick={(event) => {
                           setInViewMenuItem(item);
                           menu.current.toggle(event);

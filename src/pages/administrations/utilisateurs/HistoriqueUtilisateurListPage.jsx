@@ -164,7 +164,7 @@ export default function HistoriqueUtilisateurListPage() {
                 header="Statut"
                 body={(item) => {
                   return (
-                    <InputSwitch pt={{ slider: { className: item.STATUT_ID ? 'bitwi-button' : '' } }} checked={Boolean(item.STATUT_ID)} />
+                    <InputSwitch pt={{ slider: { className: item.STATUT_ID ? 'bg-yellow-400 rounded-button' : '' } }} checked={Boolean(item.STATUT_ID)} />
                   );
                 }}
               />

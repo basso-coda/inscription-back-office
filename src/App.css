@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #ef743c;
+    --primary-color: #f7cd6a;
 }
 
 body {
@@ -137,9 +137,10 @@ ul {
 }
 
 .p-inputswitch .p-inputswitch-input .p-inputswitch-slider {
-    background: #ef743c !important;
+    background: #f7cd6a !important;
 }
 
 .rounded-button {
     border-radius: 12px;
+    border-color: yellow;
 }

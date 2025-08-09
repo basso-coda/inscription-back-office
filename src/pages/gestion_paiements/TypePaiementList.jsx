@@ -188,7 +188,7 @@ export default function TypePaiementList() {
           <h1 className="mb-3">Type paiements</h1>
           <Button
             label="Nouveau"
-            className="bitwi-button rounded-button"
+            className="bg-yellow-400 rounded-button"
             icon="pi pi-plus"
             size="small"
             onClick={() => setAddVisible(true)}
@@ -340,7 +340,7 @@ export default function TypePaiementList() {
                         label="Options"
                         icon="pi pi-angle-down"
                         iconPos="right"
-                        className="mx-1 p-1 bitwi-button rounded-button"
+                        className="mx-1 p-1 bg-yellow-400 rounded-button"
                         onClick={(event) => {
                           setInViewMenuItem(item);
                           menu.current.toggle(event);

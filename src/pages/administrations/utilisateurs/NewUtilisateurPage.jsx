@@ -350,7 +350,7 @@ export default function NewUtilisateurPage() {
                             setErrors(null)
                         }} /> */}
 
-                        <Button label="Envoyer" type="submit" className="mt-3 ml-3 bitwi-button" size="small" disabled={isSubmitting} loading={isSubmitting} />
+                        <Button label="Envoyer" type="submit" className="mt-3 ml-3 bg-yellow-400 rounded-button" size="small" disabled={isSubmitting} loading={isSubmitting} />
                     </div>
                 </form >
             </div >

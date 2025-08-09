@@ -441,6 +441,91 @@ export default function SideBar() {
         {/* fin sous menu */}
         {/* fin */}
 
+        {/* etudiants */}
+        <div className="nav-item">
+          <a
+            onClick={toggleSubMenu}
+            className="text-decoration-none rounded d-block"
+            data-bs-toggle="collapse"
+            href="#etudiant"
+            role="button"
+            aria-expanded="false"
+            aria-controls="etudiant"
+          >
+            <div className="d-flex align-items-center justify-content-between py-2 px-3">
+
+              <div className="d-flex align-items-center justify-content-between text-white">
+                <div className="menu-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-white w-8">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                  </svg>
+                </div>
+                <span className="menu-title">Gestion des etudiants</span>
+              </div>
+              <div className="down_caret">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  fill="currentColor"
+                  className="bi bi-chevron-right"
+                  viewBox="0 0 16 16"
+                  color="white"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        {/* Sous menu candidatures */}
+          <div className="sub-menus collapse" id="etudiant">
+            {!user.hasPermission('etudiants') && <div className="nav-item">
+              <NavLink
+                to={"etudiants"}
+                className={({ isActive }) =>
+                  isActive
+                    ? "admin text-decoration-none rounded d-block text-white"
+                    : "text-decoration-none rounded d-block text-white"
+                }
+                href="/etudiants"
+              >
+                <div className="d-flex align-items-center justify-content-between py-2 px-3">
+                  <div className="d-flex align-items-center justify-content-between">
+                    <div className="menu-icon"></div>
+                    <span className="menu-title capitalize">Etudiants</span>
+                  </div>
+                </div>
+              </NavLink>
+            </div>}
+          </div>
+          <div className="sub-menus collapse" id="etudiant">
+            {!user.hasPermission('scanner-carte-etudiant') && <div className="nav-item">
+              <NavLink
+                to={"scanner-carte-etudiant"}
+                className={({ isActive }) =>
+                  isActive
+                    ? "admin text-decoration-none rounded d-block text-white"
+                    : "text-decoration-none rounded d-block text-white"
+                }
+                href="/scanner-carte-etudiant"
+              >
+                <div className="d-flex align-items-center justify-content-between py-2 px-3">
+                  <div className="d-flex align-items-center justify-content-between">
+                    <div className="menu-icon"></div>
+                    <span className="menu-title capitalize">Scanner Carte d'Etudiant</span>
+                  </div>
+                </div>
+              </NavLink>
+            </div>}
+          </div>
+        {/* fin sous menu */}
+        {/* fin */}
+
         {/* Finance */}
         <div className="nav-item">
           <a
@@ -486,58 +571,20 @@ export default function SideBar() {
         {/* sous menu Finance */}
         <div className="sub-menus collapse" id="finance">
 
-          {!user.hasPermission('Facture') && <div className="nav-item">
+          {!user.hasPermission('paiements') && <div className="nav-item">
             <NavLink
-              to={"Facture"}
+              to={"paiements"}
               className={({ isActive }) =>
                 isActive
                   ? "admin text-decoration-none rounded d-block"
                   : "text-decoration-none rounded d-block"
               }
-              href="/Facture"
-            >
-              <div className="d-flex align-items-center justify-content-between py-2 px-3">
-                <div className="d-flex align-items-center justify-content-between text-white">
-                  <div className="menu-icon"></div>
-                  <span className="menu-title">Facture</span>
-                </div>
-              </div>
-            </NavLink>
-          </div>}
-
-          {!user.hasPermission('Paiement') && <div className="nav-item">
-            <NavLink
-              to={"Paiement"}
-              className={({ isActive }) =>
-                isActive
-                  ? "admin text-decoration-none rounded d-block"
-                  : "text-decoration-none rounded d-block"
-              }
-              href="/Paiement"
+              href="/paiements"
             >
               <div className="d-flex align-items-center justify-content-between py-2 px-3">
                 <div className="d-flex align-items-center justify-content-between text-white">
                   <div className="menu-icon"></div>
                   <span className="menu-title">Paiement</span>
-                </div>
-              </div>
-            </NavLink>
-          </div>}
-
-          {!user.hasPermission('Depense') && <div className="nav-item">
-            <NavLink
-              to={"Depense"}
-              className={({ isActive }) =>
-                isActive
-                  ? "admin text-decoration-none rounded d-block"
-                  : "text-decoration-none rounded d-block"
-              }
-              href="/Depense"
-            >
-              <div className="d-flex align-items-center justify-content-between py-2 px-3">
-                <div className="d-flex align-items-center justify-content-between text-white">
-                  <div className="menu-icon"></div>
-                  <span className="menu-title"> Dépense</span>
                 </div>
               </div>
             </NavLink>

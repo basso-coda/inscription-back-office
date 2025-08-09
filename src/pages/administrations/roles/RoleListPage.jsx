@@ -189,7 +189,7 @@ export default function RoleListPage() {
           <h1 className="mb-3">Roles</h1>
           <Button
             label="Nouveau role"
-            className="bitwi-button"
+            className="bg-yellow-400 rounded-button"
             icon="pi pi-plus"
             size="small"
             onClick={() => {
@@ -299,13 +299,13 @@ export default function RoleListPage() {
                 header="Supprimé?"
                 body={(item) => {
                   return (
-                    <InputSwitch checked={Boolean(item.IS_DELETED)} onChange={e => handleDeletePress(e, item)} />
+                    <InputSwitch pt={{ slider: { className: item.IS_ACTIVE ? 'bg-yellow-400 rounded-button' : '' } }} checked={Boolean(item.IS_DELETED)} onChange={e => handleDeletePress(e, item)} />
                   );
                 }}
               />
               <Column
                 field=""
-                header=""
+                header="Actions"
                 alignFrozen="right"
                 frozen
                 body={(item) => {
@@ -344,19 +344,17 @@ export default function RoleListPage() {
                       <Menu model={items} onHide={() => setInViewMenuItem(null)} popup ref={menu} id="popup_menu_right" popupAlignment="right" />
 
                       <Button
-                        rounded
-                        severity="secondary"
-                        text
                         aria-label="Menu"
                         size="small"
-                        className="mx-1"
+                        label="Options"
+                        icon="pi pi-angle-down"
+                        iconPos="right"
+                        className="mx-1 p-1 bg-yellow-400 rounded-button"
                         onClick={(event) => {
                           setInViewMenuItem(item);
                           menu.current.toggle(event);
                         }}
-                      >
-                        <span className="pi pi-ellipsis-h"></span>
-                      </Button>
+                      />
                     </>
                   );
                 }}

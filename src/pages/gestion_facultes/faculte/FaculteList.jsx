@@ -219,7 +219,7 @@ export default function FaculteList() {
           visible={exigenceIsVisible}
           onHide={hideExigenceModal}
           style={{width: "30vw"}}
-          headerStyle={{backgroundColor:"#f8bf75"}}
+          headerStyle={{backgroundColor:"#facc15"}}
           headerClassName="text-white text-center"
         >
           <ExigenceFaculteListModal
@@ -234,7 +234,7 @@ export default function FaculteList() {
               visible={isVisible}
               onHide={hideModal}
               style={{ width: "50vw" }}
-              headerStyle={{ backgroundColor: "#f8bf75" }}
+              headerStyle={{ backgroundColor: "#facc15" }}
               headerClassName="text-white text-center"
           >
               <NewExigenceFaculteModal
@@ -250,7 +250,7 @@ export default function FaculteList() {
           <h1 className="mb-3">Facultes</h1>
           <Button
             label="Nouveau"
-            className="bitwi-button rounded-button"
+            className="bg-yellow-400 rounded-button"
             icon="pi pi-plus"
             size="small"
             onClick={() => setAddVisible(true)}
@@ -355,14 +355,14 @@ export default function FaculteList() {
                 body={(item) => {
                   return (
                     <a href="#" onClick={e => showExigencesModal(item.ID_FACULTE)}>
-                      <Badge value={item.nombreExigences} severity="warning" />
+                      <Badge value={item.nombreExigences} className="bg-yellow-400"/>
                     </a>
                   )
                 }}
               />
               <Column
                 field=""
-                header=""
+                header="Actions"
                 alignFrozen="right"
                 frozen
                 body={(item) => {
@@ -419,7 +419,7 @@ export default function FaculteList() {
                         label="Options"
                         icon="pi pi-angle-down"
                         iconPos="right"
-                        className="mx-1 p-1 bitwi-button rounded-button"
+                        className="mx-1 p-1 bg-yellow-400 rounded-button"
                         onClick={(event) => {
                           setInViewMenuItem(item);
                           menu.current.toggle(event);

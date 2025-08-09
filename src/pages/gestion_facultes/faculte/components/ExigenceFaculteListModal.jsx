@@ -25,21 +25,19 @@ export default function ExigenceFaculteListModal({ idFaculte }) {
     const fetchExigenceFacultes = useCallback(async () => {
         try {
             setLoading(true)
-            const baseurl = `/exigences-facultes?faculte=${idFaculte}`
+            const baseurl = `/exigences-facultes`;
+            const params = new URLSearchParams({ faculte: idFaculte })
             
-            var url = baseurl
             for (let key in lazyState) {
-                const value = lazyState[key]
-                if (value) {
-                    if (typeof (value) == 'object') {
-                        url += `${key}=${JSON.stringify(value)}&`
-                    } else {
-                        url += `${key}=${value}&`
-                    }
+                const value = lazyState[key];
+                if (value !== undefined && value !== null) {
+                    params.append(key, typeof value === 'object' ? JSON.stringify(value) : value);
                 }
             }
+
+            const url = `${baseurl}?${params.toString()}`;
             const res = await fetchApi(url)
-            // console.log(res)
+           
             setExigenceFacultes(res.exigence_facultes.rows)
             setTotalRecords(res.exigence_facultes.count)
         } catch (error) {
@@ -89,7 +87,7 @@ export default function ExigenceFaculteListModal({ idFaculte }) {
                         // size="normal"
                         >
 
-                            <Column field="EXIGENCE_ID" frozen header="Exigence" body={item => {
+                            <Column field="EXIGENCE_ID" frozen header="Description" body={item => {
                                 return (
                                     <span>{item?.exigence?.DESCRIPTION}</span>
                                 )

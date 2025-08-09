@@ -216,7 +216,7 @@ export default function ProfilListPage() {
           <h1 className="mb-3">Profils</h1>
           <Button
             label="Nouveau profil"
-            className="bitwi-button"
+            className="bg-yellow-400 rounded-button"
             icon="pi pi-plus"
             size="small"
 
@@ -326,7 +326,7 @@ export default function ProfilListPage() {
                       setSelectedProfil(item)
                       setShowRoles(true)
                     }}>
-                      <Badge value={"Voir les rôles associés"} severity="warning" />
+                      <Badge value={"Voir les rôles associés"} className="bg-yellow-400" />
                     </a>
                   )
                 }}
@@ -343,7 +343,7 @@ export default function ProfilListPage() {
               />
               <Column
                 field=""
-                header=""
+                header="Actions"
                 alignFrozen="right"
                 frozen
                 body={(item) => {
@@ -382,19 +382,17 @@ export default function ProfilListPage() {
                       <Menu model={items} onHide={() => setInViewMenuItem(null)} popup ref={menu} id="popup_menu_right" popupAlignment="right" />
 
                       <Button
-                        rounded
-                        severity="secondary"
-                        text
                         aria-label="Menu"
                         size="small"
-                        className="mx-1"
+                        label="Options"
+                        icon="pi pi-angle-down"
+                        iconPos="right"
+                        className="mx-1 p-1 bg-yellow-400 rounded-button"
                         onClick={(event) => {
                           setInViewMenuItem(item);
                           menu.current.toggle(event);
                         }}
-                      >
-                        <span className="pi pi-ellipsis-h"></span>
-                      </Button>
+                      />
                     </>
                   );
                 }}

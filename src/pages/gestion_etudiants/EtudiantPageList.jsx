@@ -14,15 +14,18 @@ import { InputSwitch } from "primereact/inputswitch";
 import Loading from "@/components/app/Loading";
 import { useAuth } from "@/hooks/useAuth";
 import { Badge } from "primereact/badge";
-import { candidatures_routes_items } from "@/routes/gestion_candidatures/candidatures_routes";
+import { etudiants_routes_items } from "@/routes/gestion_etudiants/etudiants_routes";
+import VoirCarteEtudiant from "./VoirCarteEtudiant";
 
-export default function CandidaturesListPage() {
+export default function EtudiantPageList() {
 
   const [loading, setLoading] = useState(true);
   const [totalRecords, setTotalRecords] = useState(1);
-  const [candidatures, setCandidatures] = useState([]);
+  const [etudiants, setEtudiants] = useState([]);
   const [inViewMenuItem, setInViewMenuItem] = useState(null);
   const [visible, setVisible] = useState(false)
+  const [dataEtudiant, setDataEtudiant] = useState()
+  const [etudiantVisible, setEtudiantVisible] = useState(false)
 
   // utilisateur connecté
   const { user } = useAuth()
@@ -63,10 +66,15 @@ export default function CandidaturesListPage() {
     setVisible(true)
   };
 
-  const fetchCandidatures = useCallback(async () => {
+  const VoirCard = (event) => {
+    setDataEtudiant(event)
+    setVisible(true)
+  }
+
+  const fetchEtudiants = useCallback(async () => {
     try {
       setLoading(true)
-      const baseurl = `/candidatures?`
+      const baseurl = `/etudiants?`
       var url = baseurl
       for (let key in lazyState) {
         const value = lazyState[key]
@@ -82,7 +90,7 @@ export default function CandidaturesListPage() {
       const { data } = await fetchApi(url);
       const list = data.rows;
 
-      setCandidatures(list);
+      setEtudiants(list);
       setTotalRecords(list.length);
     } catch (response) {
       // console.log(response)
@@ -94,9 +102,9 @@ export default function CandidaturesListPage() {
 
   useEffect(() => {
 
-    document.title = candidatures_routes_items.candidatures.name;
+    document.title = etudiants_routes_items.etudiants.name;
 
-    setBreadCrumbAction([candidatures_routes_items.candidatures])
+    setBreadCrumbAction([etudiants_routes_items.etudiants])
 
     return () => {
       setBreadCrumbAction([]);
@@ -104,12 +112,14 @@ export default function CandidaturesListPage() {
   }, []);
 
   useEffect(() => {
-    fetchCandidatures();
+    fetchEtudiants();
   }, [lazyState]);
 
   return (
     <>
       <ConfirmDialog closable dismissableMask={true} />
+
+      <VoirCarteEtudiant visible={visible} setVisible={setVisible} event={dataEtudiant} />
 
       {/* {visible && <UtilisateurActivationDialog
         visible={visible}
@@ -122,7 +132,7 @@ export default function CandidaturesListPage() {
 
       <div className="px-4 py-3 main_content">
         <div className="d-flex align-items-center justify-content-between">
-          <h2 className="mb-3">Candidatures</h2>
+          <h2 className="mb-3">Etudiants</h2>
         </div>
 
         <div className="shadow my-2 bg-white p-3 rounded d-flex align-items-center justify-content-between">
@@ -148,14 +158,14 @@ export default function CandidaturesListPage() {
           <div className="shadow rounded mt-3 pr-1 bg-white">
             <DataTable
               lazy
-              value={candidatures}
+              value={etudiants}
               tableStyle={{ minWidth: "50rem" }}
               className=""
               paginator
               rowsPerPageOptions={[5, 10, 25, 50]}
               paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
               currentPageReportTemplate={`Affichage de {first} à {last} dans ${totalRecords} éléments`}
-              emptyMessage="Aucune candidature trouvée"
+              emptyMessage="Aucun etudiant trouvée"
               first={lazyState.first}
               rows={lazyState.rows}
               totalRecords={totalRecords}
@@ -173,25 +183,9 @@ export default function CandidaturesListPage() {
               scrollable
             >
                 <Column
-                    // selectionMode="multiple"
+                    selectionMode="multiple"
                     frozen
                     headerStyle={{ width: "3rem" }}
-                />
-                <Column
-                
-                    frozen
-                   header="Statut"
-                    body={(item) => {
-                      return (
-                          <span>
-                            {item.STATUT_CANDIDATURE=='1'?(<Badge value="Demande reçue" severity="secondary"></Badge>):null} 
-                            {item.STATUT_CANDIDATURE=='2'?(<Badge value="Demande en cours de traitement" severity="info"></Badge>):null} 
-                            {item.STATUT_CANDIDATURE=='3'?(<Badge value="Demande en attente de paiement" severity="warning"></Badge>):null}
-                            {item.STATUT_CANDIDATURE=='4'?(<Badge value="Demande approuvée" severity="success"></Badge>):null}
-                            {item.STATUT_CANDIDATURE=='5'?(<Badge value="Demande refusée" severity="danger"></Badge>):null} 
-                          </span>
-                      );
-                      }}
                 />
                 <Column
                     field="NOM"
@@ -201,7 +195,7 @@ export default function CandidaturesListPage() {
                     body={(item) => {
                     return (
                         <span>
-                        {item.NOM} {item.PRENOM}
+                        {item?.candidature?.NOM} {item?.candidature?.PRENOM}
                         </span>
                     );
                     }}
@@ -210,42 +204,29 @@ export default function CandidaturesListPage() {
                     field="EMAIL_PRIVE"
                     header="Email privé"
                     sortable
+                    body={(item) => {
+                    return (
+                        <span>
+                        {item?.candidature?.EMAIL_PRIVE}
+                        </span>
+                    );
+                    }}
                 />
                 <Column
-                    field="ANNEE_ACADEMIQUE"
-                    header="Année académique"
+                    field="NUMERO_MATRICULE"
+                    header="Numéro matricule"
                     sortable
                 />
                 <Column
                     field="CLASSE_ID"
-                    header="Classe demandée"
+                    header="Classe"
                     sortable
                     body={(item) => {
                         return (
                             <span>
-                                {item?.classe?.DESCRIPTION}
+                                {item?.candidature?.classe?.DESCRIPTION}
                             </span>
                         )
-                    }}
-                />
-                <Column
-                    field="DATE_INSERTION"
-                    header="Date de soumission"
-                    sortable
-                    body={(item) => {
-                      return (
-                          <span>
-                            {item?.DATE_INSERTION ? (
-                                new Intl.DateTimeFormat("fr-FR", {
-                                    year: "numeric",
-                                    month: "short",
-                                    day: "2-digit"
-                                }).format(new Date(item.DATE_INSERTION))
-                            ) : (
-                                "Date non disponible"  // Afficher un message alternatif si la date est invalide
-                            )}
-                          </span>
-                      );
                     }}
                 />
                 
@@ -260,11 +241,23 @@ export default function CandidaturesListPage() {
                         label: 'Plus de details',
                         items: [
                         {
-                            label: 'Détail',
+                            label: 'Voir Carte Etudiant',
                             icon: 'pi pi-eye',
                             template: item => (
                             <div className='p-menuitem-content px-3'>
-                                <Link to={`/view-demande/${inViewMenuItem?.ID_CANDIDATURE}`} className="flex align-items-center p-2" style={{ textDecoration: "none", color: '#3d3d3d' }}>
+                                <Link onClick={() => VoirCard(inViewMenuItem) } className="flex align-items-center p-2" style={{ textDecoration: "none", color: '#3d3d3d' }}>
+                                <span className={item.icon} />
+                                <span className="mx-2">{item.label}</span>
+                                </Link>
+                            </div>
+                            )
+                        },
+                        {
+                            label: 'Détails',
+                            icon: 'pi-address-book',
+                            template: item => (
+                            <div className='p-menuitem-content px-3'>
+                                <Link to={`/voir-etudiant/${inViewMenuItem?.ID_ETUDIANT}`} className="flex align-items-center p-2" style={{ textDecoration: "none", color: '#3d3d3d' }}>
                                 <span className={item.icon} />
                                 <span className="mx-2">{item.label}</span>
                                 </Link>

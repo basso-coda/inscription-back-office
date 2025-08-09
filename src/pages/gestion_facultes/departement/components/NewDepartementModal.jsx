@@ -171,7 +171,7 @@ export default function NewDepartementModal(props) {
                 label={'Enregistrer'}
                 type="submit"
                 icon={isSubmitting ? `pi pi-spin pi-spinner` : `pi pi-save`}
-                className="bitwi-button rounded-button"
+                className="bg-yellow-400 rounded-button"
                 size="small"
                 disabled={isSubmitting}
             />

@@ -6,7 +6,7 @@
 
 #side_color {
     /* background-color: #ef743c; */
-    background-color: #f8bf75;
+    background-color: #eaaa09;
 }
 
 aside {
@@ -61,12 +61,12 @@ nav::-webkit-scrollbar-thumb {
 
 .nav-item a:hover {
     /* background-color: #f8bf75; */
-    background-color: #ef743c;
+    background-color: #f7cd6a;
 }
 
 .nav-item .admin, .nav-item .admin:hover {
     /* background-color: #f8bf75; */
-    background-color: #ef743c;
+    background-color: #f7cd6a;
     color: var(--surface-0);
     padding: auto 1rem;
     font-weight: bold;
